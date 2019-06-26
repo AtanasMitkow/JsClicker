@@ -46,8 +46,13 @@ function setFollowers(){
     player.followers.forEach((element) => {
         let followerContainer = document.createElement("div");
         let followerInfo = document.createElement("div");
-        followerInfo.textContent = `${element.name}        Price: ${element.upgradePrice()}`;
+        followerInfo.textContent = `${element.name}`;
+        followerInfo.classList.add("followerInfo");
+        let followerPrice = document.createElement("div");
+        followerPrice.textContent = `Price: ${element.upgradePrice()}`;
+        followerPrice.classList.add("followerPrice");
         followerContainer.appendChild(followerInfo);
+        followerContainer.appendChild(followerPrice);
         let upgradeButton = document.createElement("span");
         upgradeButton.textContent = "Upgrade";
     
@@ -85,31 +90,41 @@ function setupClickableArea(){
     
 }
 
-function calculatePerSecBalance(){
+function IncreaseBalance(){
     let totalMultiplier = 1;
     player.followers.forEach(element => {
         totalMultiplier = totalMultiplier * element.multiplier();
     });
+
+    /*Debug Log
     console.log({
         base: player.BasePerSecBalance,
         multi: totalMultiplier,
         perSec: player.BasePerSecBalance * totalMultiplier
     });
+    */
+
     if(totalMultiplier===0){
-    
     }else{
         player.perSecBalance = player.BasePerSecBalance * totalMultiplier;
     }
+
+    player.balance+=player.perSecBalance/100;
 }
 
 function updateFollowers(){
+    let followerNodes = document.getElementsByClassName("left-sidenav")[0].childNodes;
 
+    for(let i=0; i<followerNodes.length; i++){
+        let price = followerNodes[i].getElementsByClassName("followerPrice")[0];
+        price.textContent = `Price: ${player.followers[i].upgradePrice()}`;
+    }
 }
 
 gameLoop = () => {
     setTimeout(() => {
-        calculatePerSecBalance();
-        player.balance+=player.perSecBalance/100;
+        IncreaseBalance();
+
         updateBalance();
         updateFollowers();
         
