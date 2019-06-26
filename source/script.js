@@ -54,7 +54,8 @@ function setFollowers(){
         followerContainer.appendChild(followerInfo);
         followerContainer.appendChild(followerPrice);
         let upgradeButton = document.createElement("span");
-        upgradeButton.textContent = "Upgrade";
+        upgradeButton.textContent = "Level Up";
+        upgradeButton.classList.add("upgrade");
     
         upgradeButton.addEventListener("click", function(){
             if(player.balance >= element.upgradePrice()){
@@ -112,14 +113,42 @@ function IncreaseBalance(){
     player.balance+=player.perSecBalance/100;
 }
 
+function updatePrice(node){
+    for(let i=0; i<player.followers.length; i++){
+        let price = node.getElementsByClassName("followerPrice")[0];
+        price.textContent = `Price: ${player.followers[i].upgradePrice()}`;
+    }
+}
+
+function updateButton(node, i){
+    let button = node.getElementsByClassName("upgrade")[0];
+        
+    if(!button.classList.contains("upgradeButton") && !button.classList.contains("unavailableUpgrade")){
+        button.classList.add("unavailableUpgrade");
+    }else{
+        let price = player.followers[i].upgradePrice();
+        console.log(price);
+        if(player.balance < price){
+        if(button.classList.contains("upgradeButton")){
+            button.classList.replace("upgradeButton", "unavailableUpgrade");
+        }
+    }else
+        if(button.classList.contains("unavailableUpgrade")){
+            button.classList.replace("unavailableUpgrade","upgradeButton");
+        }
+    }
+}
+
 function updateFollowers(){
     let followerNodes = document.getElementsByClassName("left-sidenav")[0].childNodes;
 
     for(let i=0; i<followerNodes.length; i++){
-        let price = followerNodes[i].getElementsByClassName("followerPrice")[0];
-        price.textContent = `Price: ${player.followers[i].upgradePrice()}`;
+        updatePrice(followerNodes[i]);
+        updateButton(followerNodes[i], i);
+        
     }
 }
+
 
 gameLoop = () => {
     setTimeout(() => {
