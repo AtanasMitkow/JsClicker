@@ -23,7 +23,7 @@ window.onload = function(){
 }
 
 function setupPlayerFollowers(){
-    for(let i=0; i<10; i++){
+    for(let i=0; i<20; i++){
         let current = {
             id: i+1,
             level: 0,
@@ -45,14 +45,18 @@ function setFollowers(){
     
     player.followers.forEach((element) => {
         let followerContainer = document.createElement("div");
+        let info = document.createElement("div");
+        let level = document.createElement("div");
+        
         let followerInfo = document.createElement("div");
         followerInfo.textContent = `${element.name}`;
         followerInfo.classList.add("followerInfo");
         let followerPrice = document.createElement("div");
         followerPrice.textContent = `Price: ${element.upgradePrice()}`;
         followerPrice.classList.add("followerPrice");
-        followerContainer.appendChild(followerInfo);
-        followerContainer.appendChild(followerPrice);
+        info.appendChild(followerInfo);
+        info.appendChild(followerPrice);
+        followerContainer.appendChild(info);
         let upgradeButton = document.createElement("span");
         upgradeButton.textContent = "Level Up";
         upgradeButton.classList.add("upgrade");
@@ -63,8 +67,13 @@ function setFollowers(){
                 element.level+=1;
             }
         })
-    
-        followerContainer.appendChild(upgradeButton);
+        let levelInfo = document.createElement("div");
+        levelInfo.textContent = `Level: ${element.level}`;
+        level.appendChild(levelInfo);
+        level.appendChild(upgradeButton);
+
+        followerContainer.appendChild(level);
+        followerContainer.classList.add("followerCard");
         leftNav.appendChild(followerContainer);
     })
 }

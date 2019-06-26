@@ -13,6 +13,7 @@ body {
     height: 100%;
     display: inline-block;
     position: absolute;
+    overflow-y: auto;
 }
 
 .right-sidenav{
@@ -88,7 +89,7 @@ body {
 	-moz-border-radius:4px;
 	-webkit-border-radius:4px;
 	border-radius:4px;
-	border:1px solid #3b6e22;
+	border:1px solid black;
 	display:inline-block;
 	cursor:pointer;
 	color:#ffffff;
@@ -112,6 +113,16 @@ body {
 	top:1px;
 }
 
+.followerCard{
+    border-style: solid;
+    border-width: 2px;
+    margin: 7px;
+    margin-bottom: 8px;
+    padding: 2px;
+    box-shadow: 1px 1px 3px black;
+    display: flex;
+}
+
 .unavailableUpgrade{
     background-color:red;
     -moz-border-radius:4px;
@@ -126,4 +137,9 @@ body {
     font-weight:bold;
     padding:6px 12px;
     text-decoration:none;
+}
+
+.upgrade{
+    justify-content: right;
+    align-items: right; 
 }
