@@ -81,6 +81,4 @@ body {
 }
 
 .clickImage{
-    min-width: 100%;
-    object-fit: fill;
 }
