@@ -9,14 +9,12 @@ body {
 
 .left-sidenav{
     width: 20%;
-    height: 99%;
-    display: inline-block;
+    height: 100%;
+    display: block;
     position: absolute;
     background: #1270a7;
-    overflow-y: auto;
-    padding-right: 10px;
-    padding-left: 10px;
-    padding-top: 0.5%;
+    overflow: scroll;
+    overflow-x: hidden;
 }
 
 .right-sidenav{
@@ -121,7 +119,6 @@ body {
     border-width: 2px;
     margin: 7px;
     margin-bottom: 8px;
-    margin-top: 0;
     box-shadow: 1px 1px 3px black;
     display: flex;
     background-image: linear-gradient(to bottom right, red, yellow);
