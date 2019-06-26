@@ -79,3 +79,8 @@ body {
     position: inline-flex;
     height: 95%;
 }
+
+.clickImage{
+    min-width: 100%;
+    object-fit: fill;
+}
