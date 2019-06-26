@@ -1,7 +1,7 @@
 let player = {
     balance: 0,
-    baseOnClickBalance: 0.3,
-    BasePerSecBalance: 0.3
+    baseOnClickBalance: 0.01,
+    BasePerSecBalance: 0.01
 };
 
 let frameTime = 1000/30;
@@ -31,7 +31,7 @@ function updateBalance(){
 function setupClickableArea(){
     let area = document.getElementsByClassName('clickImage')[0];
     area.addEventListener("click", function(){
-        player.balance+=player.onClickBalance;
+        player.balance+=player.baseOnClickBalance;
         updateBalance();
     })
     
@@ -39,7 +39,7 @@ function setupClickableArea(){
 
 gameLoop = () => {
     setTimeout(() => {
-        player.balance+=player.perSecBalance/100;
+        player.balance+=player.BasePerSecBalance/100;
         updateBalance();
         
         window.requestAnimationFrame(gameLoop);
