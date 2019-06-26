@@ -113,11 +113,9 @@ function IncreaseBalance(){
     player.balance+=player.perSecBalance/100;
 }
 
-function updatePrice(node){
-    for(let i=0; i<player.followers.length; i++){
+function updatePrice(node, i){
         let price = node.getElementsByClassName("followerPrice")[0];
         price.textContent = `Price: ${player.followers[i].upgradePrice()}`;
-    }
 }
 
 function updateButton(node, i){
@@ -143,7 +141,7 @@ function updateFollowers(){
     let followerNodes = document.getElementsByClassName("left-sidenav")[0].childNodes;
 
     for(let i=0; i<followerNodes.length; i++){
-        updatePrice(followerNodes[i]);
+        updatePrice(followerNodes[i], i);
         updateButton(followerNodes[i], i);
         
     }
