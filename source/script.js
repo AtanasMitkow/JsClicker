@@ -10,18 +10,6 @@ let player = {
 let frameTime = 1000/30;
 
 
-window.onload = function(){
-    initiateClickableArea();
-    setupPlayerFollowers();
-
-    setFollowers();
-
-    updateBalance();
-    setupClickableArea();
-
-    window.requestAnimationFrame(gameLoop);
-}
-
 function setupPlayerFollowers(){
     for(let i=0; i<20; i++){
         let current = {
@@ -47,6 +35,13 @@ function setFollowers(){
         let followerContainer = document.createElement("div");
         let info = document.createElement("div");
         let level = document.createElement("div");
+        let avatar = document.createElement("div");
+        let avatarImg = document.createElement("img");
+        avatarImg.setAttribute("src", "img/avatar.jpg");
+        avatarImg.classList.add("avatar");
+        avatar.appendChild(avatarImg);
+        avatar.classList.add("avatarContainer");
+        followerContainer.appendChild(avatar);
         
         let followerInfo = document.createElement("div");
         followerInfo.textContent = `${element.name}`;
@@ -56,6 +51,7 @@ function setFollowers(){
         followerPrice.classList.add("followerPrice");
         info.appendChild(followerInfo);
         info.appendChild(followerPrice);
+        info.classList.add("followerInfoBox");
         followerContainer.appendChild(info);
         let upgradeButton = document.createElement("span");
         upgradeButton.textContent = "Level Up";
@@ -71,6 +67,7 @@ function setFollowers(){
         levelInfo.textContent = `Level: ${element.level}`;
         level.appendChild(levelInfo);
         level.appendChild(upgradeButton);
+        level.classList.add("followerLevelBox");
 
         followerContainer.appendChild(level);
         followerContainer.classList.add("followerCard");
@@ -134,7 +131,6 @@ function updateButton(node, i){
         button.classList.add("unavailableUpgrade");
     }else{
         let price = player.followers[i].upgradePrice();
-        console.log(price);
         if(player.balance < price){
         if(button.classList.contains("upgradeButton")){
             button.classList.replace("upgradeButton", "unavailableUpgrade");
@@ -166,4 +162,16 @@ gameLoop = () => {
         
         window.requestAnimationFrame(gameLoop);
     }, 10);
+}
+
+window.onload = function(){
+    initiateClickableArea();
+    setupPlayerFollowers();
+
+    setFollowers();
+
+    updateBalance();
+    setupClickableArea();
+
+    window.requestAnimationFrame(gameLoop);
 }
