@@ -91,7 +91,9 @@ function calculatePerSecBalance(){
         totalMultiplier = totalMultiplier * element.multiplier();
     });
     console.log(totalMultiplier);
-    player.perSecBalance = player.BasePerSecBalance * totalMultiplier
+    if(totalMultiplier!==1){
+    player.perSecBalance = player.BasePerSecBalance * totalMultiplier;
+    }
 }
 
 function updateFollowers(){
