@@ -1,7 +1,7 @@
 let player = {
     balance: 0,
     baseOnClickBalance: 1,
-    BasePerSecBalance: 0.01,
+    BasePerSecBalance: 1.00,
     perSecBalance: 0,
     onClickBalance: 0,
     followers: []
@@ -90,9 +90,15 @@ function calculatePerSecBalance(){
     player.followers.forEach(element => {
         totalMultiplier = totalMultiplier * element.multiplier();
     });
-    console.log(totalMultiplier);
-    if(totalMultiplier!==1){
-    player.perSecBalance = player.BasePerSecBalance * totalMultiplier;
+    console.log({
+        base: player.BasePerSecBalance,
+        multi: totalMultiplier,
+        perSec: player.BasePerSecBalance * totalMultiplier
+    });
+    if(totalMultiplier===0){
+    
+    }else{
+        player.perSecBalance = player.BasePerSecBalance * totalMultiplier;
     }
 }
 
