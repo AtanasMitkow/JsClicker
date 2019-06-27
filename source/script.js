@@ -23,6 +23,18 @@ function getArrayOfFollowers(){
                     return 1;
                 }else{
                     return 1+ this.level/10}}
+        },
+        {
+            id: 2,
+            level: 0,
+            maxLevel: 50,
+            name: `Omen`,
+            upgradePrice: function() {return (this.level+1)*100},
+            multiplier: function() { 
+                if(this.level === 0){
+                    return 1;
+                }else{
+                    return 1+ this.level/10}}
         }
     ];
 
@@ -160,18 +172,13 @@ function IncreaseBalance(){
         totalMultiplier = totalMultiplier * element.multiplier();
     });
 
-    /*Debug Log
-    console.log({
-        base: player.BasePerSecBalance,
-        multi: totalMultiplier,
-        perSec: player.BasePerSecBalance * totalMultiplier
-    });
-    */
-
     if(totalMultiplier===0){
     }else{
         player.perSecBalance = player.BasePerSecBalance * totalMultiplier;
     }
+
+    let balanceField = document.getElementsByClassName("username")[0];
+    balanceField.textContent = `${player.perSecBalance.toFixed(2)} per second`;
 
     player.balance+=player.perSecBalance/100;
 }
@@ -212,7 +219,6 @@ function updateFollowers(){
         updatePrice(followerNodes[i], i);
         updateButton(followerNodes[i], i);
         updateLevel(followerNodes[i], i);
-        
     }
 }
 
