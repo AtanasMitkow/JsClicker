@@ -14,6 +14,7 @@ body {
     position: fixed;
     background: #1270a7;
     overflow-y: scroll;
+    background-image: linear-gradient(to bottom right, #1270a7, darkblue);
 }
 
 .right-sidenav{
@@ -23,6 +24,7 @@ body {
     height: 100%;
     display: inline-block;
     position: absolute;
+    background-image: linear-gradient(to bottom right, #1270a7, darkblue);
 }
 
 .top-navbar{
