@@ -10,26 +10,83 @@ let player = {
 let frameTime = 1000/30;
 
 
-function setupPlayerFollowers(){
-    for(let i=0; i<20; i++){
-        let current = {
-            id: i+1,
+function getArrayOfFollowers(){
+    let followers = [
+        {
+            id: 1,
             level: 0,
-            name: `Follower ${i+1}`,
+            maxLevel: 50,
+            name: `Le Cruz`,
             upgradePrice: function() {return (this.level+1)*10},
-            multiplier: function() { if(this.level === 0){
-                return 1;
-            }else{
-                return 1+ this.level/10}
-            }
+            multiplier: function() { 
+                if(this.level === 0){
+                    return 1;
+                }else{
+                    return 1+ this.level/10}}
         }
+    ];
 
-        player.followers.push(current);
+    return followers;
+}
+
+function setupPlayerFollowers(){
+    let followers = getArrayOfFollowers();
+
+    for(let i=0; i<followers.length; i++){
+        player.followers.push(followers[i]);
     }
 }
 
 function setFollowers(){
     let leftNav = document.getElementsByClassName("left-sidenav")[0];
+    
+    player.followers.forEach((element) => {
+        let followerContainer = document.createElement("div");
+        let info = document.createElement("div");
+        let level = document.createElement("div");
+        let avatar = document.createElement("div");
+        let avatarImg = document.createElement("img");
+        avatarImg.setAttribute("src", "img/avatar.jpg");
+        avatarImg.classList.add("avatar");
+        avatar.appendChild(avatarImg);
+        avatar.classList.add("avatarContainer");
+        followerContainer.appendChild(avatar);
+        
+        let followerInfo = document.createElement("div");
+        followerInfo.textContent = `${element.name}`;
+        followerInfo.classList.add("followerInfo");
+        let followerPrice = document.createElement("div");
+        followerPrice.textContent = `Price: ${element.upgradePrice()}`;
+        followerPrice.classList.add("followerPrice");
+        info.appendChild(followerInfo);
+        info.appendChild(followerPrice);
+        info.classList.add("followerInfoBox");
+        followerContainer.appendChild(info);
+        let upgradeButton = document.createElement("span");
+        upgradeButton.textContent = "Level Up";
+        upgradeButton.classList.add("upgrade");
+    
+        upgradeButton.addEventListener("click", function(){
+            if(player.balance >= element.upgradePrice()){
+                player.balance -= element.upgradePrice();
+                element.level+=1;
+            }
+        })
+        let levelInfo = document.createElement("div");
+        levelInfo.textContent = `Level: ${element.level}`;
+        levelInfo.classList.add("levelInfo");
+        level.appendChild(levelInfo);
+        level.appendChild(upgradeButton);
+        level.classList.add("followerLevelBox");
+
+        followerContainer.appendChild(level);
+        followerContainer.classList.add("followerCard");
+        leftNav.appendChild(followerContainer);
+    })
+}
+
+function setSelfUpgrades(){
+    let leftNav = document.getElementsByClassName("right-sidenav")[0];
     
     player.followers.forEach((element) => {
         let followerContainer = document.createElement("div");
@@ -142,18 +199,25 @@ function updateButton(node, i){
     }
 }
 
+function updateLevel(node, i){
+    let level = node.getElementsByClassName("levelInfo")[0];
+
+    level.textContent = `Level: ${player.followers[i].level}`;
+}
+
 function updateFollowers(){
     let followerNodes = document.getElementsByClassName("left-sidenav")[0].childNodes;
 
     for(let i=0; i<followerNodes.length; i++){
         updatePrice(followerNodes[i], i);
         updateButton(followerNodes[i], i);
+        updateLevel(followerNodes[i], i);
         
     }
 }
 
 
-gameLoop = () => {
+let gameLoop = () => {
     setTimeout(() => {
         IncreaseBalance();
 
@@ -169,6 +233,7 @@ window.onload = function(){
     setupPlayerFollowers();
 
     setFollowers();
+    setSelfUpgrades();
 
     updateBalance();
     setupClickableArea();
