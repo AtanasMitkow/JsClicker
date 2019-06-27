@@ -5,7 +5,20 @@ body {
     font-family: 'Oswald', sans-serif;
     margin: 0;
     padding: 0;
+	overflow-x: hidden !important;
   }
+
+  ::-webkit-scrollbar {
+    width: 0px !important;
+    background: transparent !important; /* make scrollbar transparent */
+}
+
+#outer-div{
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
 
 .left-sidenav{
     width: 20%;
@@ -15,6 +28,8 @@ body {
     background: #1270a7;
     overflow-y: scroll;
     background-image: linear-gradient(to bottom right, #1270a7, darkblue);
+    box-sizing:content-box;
+    padding-right: 17px;
 }
 
 .right-sidenav{
@@ -26,8 +41,9 @@ body {
     position: absolute;
     overflow-y: scroll;
     background-image: linear-gradient(to bottom right, #1270a7, darkblue);
+    box-sizing:content-box;
+    padding-right: 17px;
 }
-
 .top-navbar{
     height: 5%;
     background: #898427;
